@@ -16,30 +16,83 @@ import javafx.scene.text.Text;
  *
  * @author Hellena
  */
-public class MainUI extends TitledPane
+public class MainUI extends GridPane
 {
     private Button Search ;
     private Button Search_extend;
     private Button Go;
     private GridPane searchGrid ;
     private GridPane uploadGrid;
+    
+    private TitledPane searchDropDown;
+
+  
+    private TitledPane uploadDropDown;
+   
     private Text title;
     private TextField searchField;
     private TextField search_name;
     private TextField search_email;
+    private Button uploadButton;
+    private Button select;
 
+
+
+ 
     public MainUI()
     {  
         setSearch();
         setTtitle();
+        setUploadButton();
+        setSelectButton();
         setSearchField();
         setSearch_email();
-        setControlGrid();
-        this.setText("Search");
-        this.setContent(searchGrid);
+        setSearchGrid();
+        setUploadGrid();
+        setUploadDropDown( );
+        setSearchDropDown( ); 
+        this.add(searchDropDown, 0, 0);
+        this.add(uploadDropDown,0,1);
+        
+       
         
         
-        }    
+    }    
+    
+    public void setSelectButton() 
+    {
+        this.select=new Button();
+        
+    }
+
+    
+    public void setSearchDropDown( ) 
+    {
+        searchDropDown=new TitledPane();
+        searchDropDown.setText("Search");
+        searchDropDown.setContent(searchGrid);
+        searchDropDown.expandedProperty().setValue(Boolean.FALSE);
+        
+    }
+
+    public void setUploadDropDown( ) 
+    {
+        uploadDropDown = new TitledPane();
+        uploadDropDown.setText("Upload");
+        uploadDropDown.setContent(uploadGrid);
+        uploadDropDown.expandedProperty().setValue(Boolean.FALSE);
+    }
+    
+    public void setSelect()
+    {
+     select=new Button("Select");
+    }
+
+    public void setUploadButton() 
+    {
+        uploadButton=new Button("Upload");
+    }
+
     private void setTtitle()
     {
         title=new Text("Search");
@@ -77,18 +130,28 @@ public class MainUI extends TitledPane
         this.search_email=new TextField();
         search_email.setText("email@yahoo");
     }
-    public void setControlGrid( ) 
+    public void setSearchGrid( ) 
     {
         searchGrid=new GridPane();
         searchGrid.setVgap(4);
-       searchGrid.setPadding(new Insets(5, 5, 5, 5));
-searchGrid.add(new Label("First Name: "), 0, 0);
-searchGrid.add(new TextField(), 1, 0);
-searchGrid.add(new Label("Last Name: "), 0, 1);
-searchGrid.add(new TextField(), 1, 1);
-searchGrid.add(new Label("Email: "), 0, 2);
-       searchGrid.add(new TextField(), 1, 2);  
-       searchGrid.add(Search,0,3);
+        searchGrid.setPadding(new Insets(5, 5, 5, 5));
+        searchGrid.add(new Label("First Name: "), 0, 0);
+        searchGrid.add(new TextField(), 1, 0);
+        searchGrid.add(new Label("Last Name: "), 0, 1);
+        searchGrid.add(new TextField(), 1, 1);
+        searchGrid.add(new Label("Email: "), 0, 2);
+        searchGrid.add(new TextField(), 1, 2);  
+        searchGrid.add(Search,0,3);
+    }
+     public void setUploadGrid() 
+     {
+        uploadGrid=new GridPane();
+        uploadGrid.setVgap(4);
+        uploadGrid.setPadding(new Insets(5,5,5,5));
+        uploadGrid.add(new Label("File:"),0,0);
+        uploadGrid.add(new TextField(),2,1);
+        uploadGrid.add(select,0,1);
+        uploadGrid.add(uploadButton,0,2);
     }
 
     
