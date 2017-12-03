@@ -27,7 +27,8 @@ public class Main extends BorderPane
     private Text welcome;
     private Button logout;
     MainUI ui=new MainUI();
-
+    ImageBox ib=new ImageBox("user");
+    ImageControl ic=new ImageControl();
     public Main(String user) 
     {
        setTitle();
@@ -37,8 +38,9 @@ public class Main extends BorderPane
        setTitleBox();
        setMainBox();
        this.setTop(mainBox);
-       
+       this.setCenter(ib);
        this.setLeft(ui);
+       this.setRight(ic);
     }
 
   
