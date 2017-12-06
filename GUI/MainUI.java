@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
@@ -30,19 +31,21 @@ public class MainUI extends GridPane
     private TitledPane uploadDropDown;
    
     private Text title;
+    private Text respMssge=new Text("N/A");
     private TextField searchField;
     private TextField search_name;
     private TextField search_email;
     private Button uploadButton;
     private Button select;
+    
+    private VBox statusBox;
 
 
-
- 
     public MainUI()
     {  
         setSearch();
         setTtitle();
+        setStatusBox();
         setUploadButton();
         setSelectButton();
         setSearchField();
@@ -53,11 +56,20 @@ public class MainUI extends GridPane
         setSearchDropDown( ); 
         this.add(searchDropDown, 0, 0);
         this.add(uploadDropDown,0,1);
+        this.add(statusBox,0,6);
         
        
         
         
     }    
+      public void setStatusBox() 
+      {
+        statusBox = new VBox();
+        Text status=new Text("Server Response:");
+        statusBox.getChildren().addAll(status,respMssge);
+
+    }
+    
     
     public void setSelectButton() 
     {

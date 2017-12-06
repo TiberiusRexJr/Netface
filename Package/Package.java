@@ -18,6 +18,16 @@ public class Package
     private Header header;
     private ArrayList<BufferedImage> payload;
     
+    public Package(Header h,ArrayList<BufferedImage> p)
+    {
+        setHeader(h);
+        setPayload(p);
+    }
+    public Package(Header h)
+    {
+        setHeader(h);
+    }
+    
      public Header getHeader() 
      {
         return header;
