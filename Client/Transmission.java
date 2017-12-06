@@ -18,10 +18,7 @@ public class Transmission
     private static InetAddress host;
     private static final int port=0001;
     private static DatagramSocket dgramSocket;
-
-  
-    private static DatagramPacket outbound;
-    private static byte[] buffer;
+   
     
     public  Transmission()
     {
@@ -56,7 +53,7 @@ public class Transmission
     public void Send(byte[] packet)
     {
         
-        outbound=new DatagramPacket
+        DatagramPacket outbound=new DatagramPacket
                 (
                         packet,packet.length,host,port
                 );
@@ -69,14 +66,28 @@ public class Transmission
         {
             
         }
-        dgramSocket.close();
+        
     }
     
-    public String response(DatagramPacket resp)
+    public String recieve()
     {
-        buffer=new byte[256];
-        
+        byte[] buffer=new byte[256];
+        byte[] data=null;
         String mssg=null;
+        
+        DatagramPacket inbound = new DatagramPacket
+        (buffer, buffer.length); 
+        try
+        {
+          dgramSocket.receive(inbound);
+          data=inbound.getData();
+
+        }
+        catch(IOException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        
          return mssg;
     }
  
