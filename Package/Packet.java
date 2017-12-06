@@ -6,24 +6,24 @@
 package Package;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author Darius
  */
-public class Package 
+public class Packet implements Serializable
 {
     private Header header;
     private ArrayList<BufferedImage> payload;
     
-    public Package(Header h,ArrayList<BufferedImage> p)
+    public Packet(Header h,ArrayList<BufferedImage> p)
     {
         setHeader(h);
         setPayload(p);
     }
-    public Package(Header h)
+    public Packet(Header h)
     {
         setHeader(h);
     }

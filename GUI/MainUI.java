@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package GUI;
+import Package.*;
+import Client.*;
+import Utilities.Util;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,14 +36,15 @@ public class MainUI extends GridPane
    
     private Text title;
     private Text respMssge=new Text("N/A");
-    private TextField searchField;
-    private TextField search_name;
+    private TextField firstName;
+    private TextField lastName;
     private TextField search_email;
     private Button uploadButton;
     private Button select;
     
     private VBox statusBox;
 
+    
 
     public MainUI()
     {  
@@ -48,8 +53,9 @@ public class MainUI extends GridPane
         setStatusBox();
         setUploadButton();
         setSelectButton();
-        setSearchField();
-        setSearch_email();
+        setFirstName();
+        setLastName();
+        setSearchEmail();
         setSearchGrid();
         setUploadGrid();
         setUploadDropDown( );
@@ -111,11 +117,24 @@ public class MainUI extends GridPane
     }
     public void setSearch() 
     {
-        Search = new Button("Search");
+        Search = new Button("Search"); 
+        Search.setOnAction((ActionEvent event)->
+        { 
+            String code="0001";
+            String query=lastName.getText()+firstName.getText();
+            Header h=new Header("jerry","password",code,query);
+            Packet p=new Packet(h);
+            
+            Util u=new Util();
+           
+            byte[] pack=u.toByte(p);
+            System.out.println(pack.length);
+  
+        });
     }
 
     public void setSearch_extend() 
-    {
+    { 
         this.Search_extend = new Button("More");
     }
 
@@ -124,23 +143,23 @@ public class MainUI extends GridPane
         this.Go = new Button("Go");
     }
 
-    public void setSearchField()
+    public void setFirstName()
     {
-        this.searchField = new TextField();
-        searchField.setText("First Last");
-    }
-
-    public void setSearch_name() 
-    {
-        this.search_name = new TextField();
-        search_name.setText("First Last");
+        this.firstName = new TextField();
         
     }
 
-    public void setSearch_email()
+    public void setLastName() 
+    {
+        this.lastName = new TextField();
+        
+        
+    }
+
+    public void setSearchEmail()
     {
         this.search_email=new TextField();
-        search_email.setText("email@yahoo");
+        
     }
     public void setSearchGrid( ) 
     {
@@ -148,12 +167,12 @@ public class MainUI extends GridPane
         searchGrid.setVgap(4);
         searchGrid.setPadding(new Insets(5, 5, 5, 5));
         searchGrid.add(new Label("First Name: "), 0, 0);
-        searchGrid.add(new TextField(), 1, 0);
+        searchGrid.add(firstName, 1, 0);
         searchGrid.add(new Label("Last Name: "), 0, 1);
-        searchGrid.add(new TextField(), 1, 1);
-        searchGrid.add(new Label("Email: "), 0, 2);
-        searchGrid.add(new TextField(), 1, 2);  
-        searchGrid.add(Search,0,3);
+        searchGrid.add(lastName, 1, 1);
+        
+        searchGrid.add(Search, 1, 2);  
+        
     }
      public void setUploadGrid() 
      {

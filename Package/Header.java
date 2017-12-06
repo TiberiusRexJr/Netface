@@ -5,11 +5,13 @@
  */
 package Package;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Darius
  */
-public class Header 
+public class Header implements Serializable
 {
     private byte[] name=new byte[16];
     private byte[] pass=new byte[16];

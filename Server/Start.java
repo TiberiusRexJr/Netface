@@ -23,7 +23,7 @@ public class Start
     
     public Start()
     {
-    
+        startup();
     }
     
     public void startup()
