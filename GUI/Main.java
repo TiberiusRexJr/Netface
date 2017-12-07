@@ -34,12 +34,12 @@ public class Main extends BorderPane
     private Button logout;
     private final String defaultUser="N/A";
     
-    Start s=new Start();
+    
     MainUI ui=new MainUI(this);
     ImageControl ic=new ImageControl();
     ClientOp cop=new ClientOp();
     Transmission t=new Transmission();
-    Login li=new Login(this,ui,cop,s,t);
+    Login li=new Login(this,ui,cop,t);
     ImageBox ib=new ImageBox("user");
    
     

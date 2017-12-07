@@ -7,7 +7,7 @@ package GUI;
 
 import Client.ClientOp;
 import Client.Transmission;
-import Server.Start;
+
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -30,7 +30,7 @@ public class Login extends GridPane
    
     
     
-    public Login(Main m,MainUI mu,ClientOp co,Start s,Transmission t)
+    public Login(Main m,MainUI mu,ClientOp co,Transmission t)
     {
          
         this.setVgap(4);
@@ -53,6 +53,7 @@ public class Login extends GridPane
         {
             cop.setPassword(usrpswrd.getText());
             cop.setUsrname(usrnm.getText());
+            
             main.setLeft(mainui);
            
            
