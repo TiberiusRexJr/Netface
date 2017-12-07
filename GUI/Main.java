@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
+import Client.ClientOp;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -21,21 +22,28 @@ public class Main extends BorderPane
 {
    
     private HBox mainBox;
+
+    public HBox getMainBox() {
+        return mainBox;
+    }
     private HBox titleBox;
     private VBox welcomeBox;
     private Text title;
     private Text welcome;
     private Button logout;
+    private final String defaultUser="N/A";
     
-    MainUI ui=new MainUI();
-    ImageBox ib=new ImageBox("user");
+    MainUI ui=new MainUI(this);
     ImageControl ic=new ImageControl();
-    Login li=new Login(this,ui);
+    ClientOp cop=new ClientOp();
+    Login li=new Login(this,ui,cop);
+    ImageBox ib=new ImageBox("user");
     
-    public Main(String user) 
+    
+    public Main(String defaultUser) 
     {
        setTitle();
-       setWelcome(user);
+       setWelcome(defaultUser);
        setLogout(); 
        setWelcomeBox();
        setTitleBox();

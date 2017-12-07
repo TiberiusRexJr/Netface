@@ -5,13 +5,14 @@
  */
 package GUI;
 
+import Client.ClientOp;
+import Server.Start;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.Node;
 /**
  *
  * @author Dream
@@ -23,9 +24,12 @@ public class Login extends GridPane
     private Button submit;
     private Main main;
     private MainUI mainui;
+    private ClientOp cop;
+
+   
     
     
-    public Login(Main m,MainUI mu)
+    public Login(Main m,MainUI mu,ClientOp co)
     {
          
         this.setVgap(4);
@@ -38,6 +42,7 @@ public class Login extends GridPane
         this.add(submit,1,2);
         main=m;
         mainui=mu;
+        cop=co;
     }
     
     public void setSubmit()
@@ -45,10 +50,18 @@ public class Login extends GridPane
         submit=new Button("Submit");
         submit.setOnAction( (ActionEvent event)->
         {
-            
+            cop.setPassword(usrpswrd.getText());
+            cop.setUsrname(usrnm.getText());
             main.setLeft(mainui);
+            Start s=new Start();
+            
+            
         }
         );
+    }
+     public ClientOp getCop() 
+     {
+        return cop;
     }
     
 }

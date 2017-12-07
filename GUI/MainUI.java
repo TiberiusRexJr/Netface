@@ -43,10 +43,11 @@ public class MainUI extends GridPane
     private Button select;
     
     private VBox statusBox;
+    private final Main  main;
 
     
 
-    public MainUI()
+    public MainUI(Main ma)
     {  
         setSearch();
         setTtitle();
@@ -63,6 +64,8 @@ public class MainUI extends GridPane
         this.add(searchDropDown, 0, 0);
         this.add(uploadDropDown,0,1);
         this.add(statusBox,0,6);
+        main=ma;
+       
      
     }    
       public void setStatusBox() 
@@ -71,7 +74,8 @@ public class MainUI extends GridPane
         Text status=new Text("Server Response:");
         statusBox.getChildren().addAll(status,respMssge);
 
-    }
+      }
+      
     
     
     public void setSelectButton() 
@@ -119,14 +123,16 @@ public class MainUI extends GridPane
         { 
             String code="0001";
             String query=lastName.getText()+firstName.getText();
-            Header h=new Header("jerry","password",code,query);
+            String name,pass;
+            name=main.li.getCop().getUsrname();
+            pass=main.li.getCop().getPassword();
+            Header h=new Header(name,pass,code,query);
             Packet p=new Packet(h);
             
             Util u=new Util();
            
             byte[] pack=u.toByte(p);
-            
-  
+   
         });
     }
 

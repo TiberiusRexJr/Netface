@@ -16,20 +16,38 @@ public class ClientOp
 {
     private String Querey=null;
     private String usrname;
+
+   
     private String password;
     
-    public void makeQuery(ArrayList<String> l)
+    public ClientOp()
     {
-       Iterator<String> it=l.iterator();
-       while(it.hasNext())
-       {
-           System.out.println(it.next());
-       }
+    
     }
     
     public void reglocal(String usr,String pass)
     {
         this.usrname=usr;
         this.password=pass;
+    }
+    
+     public String getUsrname() 
+     {
+        return usrname;
+    }
+
+    public void setUsrname(String usrname)
+    {
+        this.usrname = usrname;
+    }
+
+    public String getPassword() 
+    {
+        return password;
+    }
+
+    public void setPassword(String password) 
+    {
+        this.password = password;
     }
 }
