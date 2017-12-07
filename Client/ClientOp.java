@@ -15,6 +15,8 @@ import java.util.Iterator;
 public class ClientOp 
 {
     private String Querey=null;
+    private String usrname;
+    private String password;
     
     public void makeQuery(ArrayList<String> l)
     {
@@ -23,5 +25,11 @@ public class ClientOp
        {
            System.out.println(it.next());
        }
+    }
+    
+    public void reglocal(String usr,String pass)
+    {
+        this.usrname=usr;
+        this.password=pass;
     }
 }

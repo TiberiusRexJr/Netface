@@ -63,10 +63,7 @@ public class MainUI extends GridPane
         this.add(searchDropDown, 0, 0);
         this.add(uploadDropDown,0,1);
         this.add(statusBox,0,6);
-        
-       
-        
-        
+     
     }    
       public void setStatusBox() 
       {
@@ -128,7 +125,7 @@ public class MainUI extends GridPane
             Util u=new Util();
            
             byte[] pack=u.toByte(p);
-            System.out.println(pack.length);
+            
   
         });
     }
