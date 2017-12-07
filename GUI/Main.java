@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package GUI;
-import Client.ClientOp;
+import Client.*;
+import Server.Start;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -33,11 +34,14 @@ public class Main extends BorderPane
     private Button logout;
     private final String defaultUser="N/A";
     
+    Start s=new Start();
     MainUI ui=new MainUI(this);
     ImageControl ic=new ImageControl();
     ClientOp cop=new ClientOp();
-    Login li=new Login(this,ui,cop);
+    Transmission t=new Transmission();
+    Login li=new Login(this,ui,cop,s,t);
     ImageBox ib=new ImageBox("user");
+   
     
     
     public Main(String defaultUser) 

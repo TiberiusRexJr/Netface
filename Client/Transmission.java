@@ -16,7 +16,7 @@ import java.util.*;
 public class Transmission
 {
     private static InetAddress host;
-    private static final int port=0001;
+    private static final int port=1234;
     private static DatagramSocket dgramSocket;
    
     
@@ -26,11 +26,11 @@ public class Transmission
         setHost();
         
     }
-      public static void setDgramSocket() 
+      public  void setDgramSocket() 
       {
           try
           {
-            Transmission.dgramSocket = new DatagramSocket();  
+            dgramSocket = new DatagramSocket();  
           }
           catch(IOException e)
           {
@@ -38,15 +38,17 @@ public class Transmission
           }
         
       }
-    public static void setHost()
+    public  void setHost()
     {
         try
         {
-            host=InetAddress.getLocalHost();   
+            host=InetAddress.getLocalHost();
+            System.out.println(host.getHostName());
         }
         catch(UnknownHostException e)
         {
             System.out.println("host id not found");
+            System.out.println(e.getClass());
         }
     }
     
