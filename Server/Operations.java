@@ -36,7 +36,26 @@ public class Operations  extends Server
     
     public boolean register(String info)
     {
-        System.out.println(info);
+        String[] data=info.split("\\s+");
+        
+        String newLine=System.getProperty("line.separator");
+        try
+        {
+         FileWriter fw=new FileWriter(mainFolderAdress+"/access_list.txt",true);
+         BufferedWriter bw=new BufferedWriter(fw);
+         
+         for(String s: data)
+         {
+             bw.write(s+newLine);
+             
+         }
+         bw.close();
+        }
+        catch(IOException ex)
+        {
+            System.out.println(ex.getClass());
+        }
+       
         return b;
     }
     
