@@ -10,31 +10,34 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 /**
  *
  * @author Dream
  */
 public class Operations  extends Server 
 {
-    public boolean b=false;
+    private int status=0;
+
+    
     private final String mainFolderAdress="C://Netface";
     private final String imageFolderAdres=mainFolderAdress+"/images";
     
-    public boolean upload()
+    public int upload()
     {
         
         
-        return b;
+        return status;
     };
     
-    public boolean search(String name)
+    public int search(String name)
     {
         
         
-        return b;
+        return status;
     }
     
-    public boolean register(String info)
+    public int register(String info)
     {
         String[] data=info.split("\\s+");
         
@@ -50,33 +53,36 @@ public class Operations  extends Server
              
          }
          bw.close();
+         status=1;
         }
         catch(IOException ex)
         {
             System.out.println(ex.getClass());
         }
        
-        return b;
+        return status;
     }
     
-    public boolean validate(String q)
+    public int validate(String q)
     {
         System.out.print(q);
-        return b;
+        status=1;
+        return status;
     }
     
-    public boolean delete()
+    public int delete()
     {
-        return b;
+        return status;
     }
-    public boolean logout()
+    public int logout()
     {
-        return b;
+        return status;
     }
-    public boolean mkdir()
+    public int mkdir()
     {  
        
         File dir=new File(mainFolderAdress);
+        
         
         if(!dir.exists())
         {
@@ -92,17 +98,19 @@ public class Operations  extends Server
          writer.newLine();
          writer.write("password");
          writer.close();
-         
+         status=1;
+
         }
         catch(IOException ex)
         {
             System.out.println(ex.getClass());
         }
        
-        b=true;
+        
         }
-        return b;
+        return status;
     };
+   
     
     
 }

@@ -9,16 +9,18 @@ package Client;
  *
  * @author Dream
  */
+import Package.Packet;
+import Utilities.Util;
 import java.io.*;
 import java.net.*;
-import java.util.*;
+import java.lang.ClassNotFoundException;
 
 public class Transmission
 {
     private static InetAddress host;
     private static final int port=1234;
     private static DatagramSocket dgramSocket;
-   
+    Util u=new Util();
     
     public  Transmission()
     {
@@ -71,9 +73,9 @@ public class Transmission
         
     }
     
-    public String recieve()
+    public String recieve() throws ClassNotFoundException
     {
-        byte[] buffer=new byte[256];
+        byte[] buffer=new byte[500];
         byte[] data=null;
         String mssg=null;
         
@@ -83,11 +85,13 @@ public class Transmission
         {
           dgramSocket.receive(inbound);
           data=inbound.getData();
-
+          Packet p=(Packet) u.toObject(data);
+          System.out.println(new String(p.getHeader().getName()));
         }
         catch(IOException ex)
         {
-            System.out.println(ex.getMessage());
+            System.out.println(ex.getClass());
+            
         }
         
          return mssg;

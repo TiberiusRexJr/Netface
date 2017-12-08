@@ -23,6 +23,7 @@ public class Server extends Thread
     private InetAddress clientAddress=null;
     private int clientPort=0;
     private File dir;
+   
    @Override
    public void run()
     {
@@ -60,8 +61,8 @@ public class Server extends Thread
                 inPacket = new DatagramPacket(buffer, buffer.length); //Step 3.
                 dgramSocket.receive(inPacket);	//Step 4.
 
-                InetAddress clientAddress= inPacket.getAddress();	//Step 5.
-                int clientPort= inPacket.getPort();		//Step 5.
+                clientAddress= inPacket.getAddress();	//Step 5.
+                clientPort= inPacket.getPort();		//Step 5.
 
                 messageIn = new String(inPacket.getData(), 0,inPacket.getLength());	//Step 6.
 
@@ -107,11 +108,14 @@ public class Server extends Thread
         System.out.println("in switchboard");
         Operations o=new Operations();
         String code=new String(p.getHeader().getCode());
-        
+        int status=0;
+        String codeDesc="";
         
         switch(code)
         {
-            case "v": o.validate(new String(p.getHeader().getQuery()));
+            case "v": status=o.validate(new String(p.getHeader().getQuery()));
+                      codeDesc="Validate";
+                      response(code,codeDesc,status);
                break;
             case "u":
                break;
@@ -125,12 +129,51 @@ public class Server extends Thread
                 break;
             case "l":
                 break;
-            case "r":o.register(new String(p.getHeader().getQuery()));
+            case "r":status=o.register(new String(p.getHeader().getQuery()));
+                     codeDesc="Register";
+                     response(code,codeDesc,status);
                 break;
             default: break;
             
         }
+        
+        
 
+    }
+    
+    private void response(String c,String cd,int st)
+    {
+        String status="";
+        if(st==1)
+        {
+            status="Success";
+        }
+        else if(st==0)
+        {
+            status="Failure";
+        }
+ 
+        String name="Server";
+        String pass="NA";
+        String q=cd+": "+status;
+        
+        Header h=new Header(name,pass,c,q);
+        Packet p=new Packet(h);
+        Util u=new Util();
+        byte[] pack=u.toByte(p);
+        System.out.println(pack.length+"hi from server response");
+        
+        outPacket = new DatagramPacket(pack,pack.length,clientAddress,clientPort);
+        
+        try
+        {
+            dgramSocket.send(outPacket);
+        }
+        catch(IOException ex)
+        {
+            System.out.println(ex.getClass());
+        }
+                	
     }
 }
     

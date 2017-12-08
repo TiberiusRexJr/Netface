@@ -67,6 +67,7 @@ public class Register extends GridPane
             byte[] pack=main.ut.toByte(p);
             System.out.println(pack.length);
             main.t.Send(pack);
+            main.t.recieve();
 
         });
     }
