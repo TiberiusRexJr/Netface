@@ -5,7 +5,10 @@
  */
 package Server;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -14,6 +17,8 @@ import java.io.File;
 public class Operations  extends Server 
 {
     public boolean b=false;
+    private final String mainFolderAdress="C://Netface";
+    private final String imageFolderAdres=mainFolderAdress+"/images";
     
     public boolean upload()
     {
@@ -51,14 +56,32 @@ public class Operations  extends Server
     }
     public boolean mkdir()
     {  
-        File dir=new File("C:/Users/All Users/Desktop/Netface");
+       
+        File dir=new File(mainFolderAdress);
+        
         if(!dir.exists())
         {
-        new File("C:/Users/All Users/Desktop/Netface").mkdirs();
+        new File(mainFolderAdress).mkdirs();
+        new File(imageFolderAdres).mkdirs();
+        
+        File al= new File(mainFolderAdress+"/access_list.txt");
+        try
+        {
+         al.createNewFile();
+         BufferedWriter writer=new BufferedWriter(new FileWriter(al));
+         writer.write("admin");
+         writer.newLine();
+         writer.write("password");
+         writer.close();
+         
+        }
+        catch(IOException ex)
+        {
+            System.out.println(ex.getClass());
+        }
+       
         b=true;
         }
-        
-       
         return b;
     };
     

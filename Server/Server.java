@@ -22,10 +22,14 @@ public class Server extends Thread
     private static byte[] dataIn=null;
     private InetAddress clientAddress=null;
     private int clientPort=0;
+    private File dir;
    @Override
    public void run()
     {
         Start();
+        Operations o=new Operations();
+        o.mkdir();
+        
     }
         
     public void Start() 
@@ -40,7 +44,8 @@ public class Server extends Thread
             System.out.println(e.getClass());
             System.exit(1);
         }
-       
+        Operations o=new Operations();
+        o.mkdir();
         controller();
     }
 

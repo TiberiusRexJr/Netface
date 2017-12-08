@@ -23,6 +23,7 @@ public class Register extends GridPane
     
     TextField firstName=new TextField();
     TextField lastName=new TextField();
+    TextField id=new TextField();
     TextField email=new TextField();
     TextField password=new TextField();
     Button Register=new Button("Register");
@@ -37,14 +38,17 @@ public class Register extends GridPane
         this.setPadding(new Insets(5,5,5,5));
         this.add(new Label("First Name:"), 0, 0);
         this.add(new Label("Last Name: "), 0, 1);
-        this.add(new Label("Email:"),0,2);
-        this.add(new Label("Password:"),0,3);
+        this.add(new Label("Student ID:"),0,2);
+        this.add(new Label("Email:"),0,3);
+        this.add(new Label("Password:"),0,4);
+        
         
         this.add(firstName,1,0);
         this.add(lastName,1,1);
-        this.add(email,1,2);
-        this.add(password,1,3);
-        this.add(Register,1,4);
+        this.add(id,1,2);
+        this.add(email,1,3);
+        this.add(password,1,4);
+        this.add(Register,0,5);
     }
     
     public void setRegister() 
@@ -55,7 +59,7 @@ public class Register extends GridPane
            String name="admin";
            String pass="password";
            String code="r";
-           String query=firstName.getText()+" "+lastName.getText()+" "+email.getText()+" "+password.getText();
+           String query=firstName.getText()+" "+lastName.getText()+" "+id.getText()+" "+email.getText()+" "+password.getText();
            
            Header h=new Header(name,pass,code,query);
            Packet p=new Packet(h);
