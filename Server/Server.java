@@ -49,33 +49,28 @@ public class Server extends Thread
 
             do {
                 buffer = new byte[256]; 		//Step 2.
-                inPacket = new DatagramPacket(
-                        buffer, buffer.length); //Step 3.
+                inPacket = new DatagramPacket(buffer, buffer.length); //Step 3.
                 dgramSocket.receive(inPacket);	//Step 4.
 
-                InetAddress clientAddress
-                        = inPacket.getAddress();	//Step 5.
-                int clientPort
-                        = inPacket.getPort();		//Step 5.
+                InetAddress clientAddress= inPacket.getAddress();	//Step 5.
+                int clientPort= inPacket.getPort();		//Step 5.
 
-                messageIn = new String(inPacket.getData(), 0,
-                        inPacket.getLength());	//Step 6.
+                messageIn = new String(inPacket.getData(), 0,inPacket.getLength());	//Step 6.
 
                 System.out.println("Message received.");
                 byte[] data=inPacket.getData();
+                Packet o=null;
                         Util u=new Util();
                         try
                         {
-                            Object o=(Packet) u.toObject(data);
-                            System.out.println(o.toString());
-                            
-                            
-                            
+                             o=(Packet) u.toObject(data);
+                             switchBoard(o);     
                         }
                         catch(ClassNotFoundException cnf)
                          {
                              System.out.println(cnf.getClass());
                          }
+                       
                         
                         
                 numMessages++;
@@ -88,65 +83,24 @@ public class Server extends Thread
                         clientPort);		//Step 7.
                 dgramSocket.send(outPacket);	//Step 8.
             } while (true);
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         } finally //If exception thrown, close connection.
         {
             System.out.println("\n* Closing connection... *");
             dgramSocket.close();				//Step 9.
         }
-    }
-    
-    
-    
-  /*  private static byte[] buffer = new byte[15000]; 
-    
-    public Server()
-    {
-        startup();
-    }
-    
-    public void startup()
-    {
-        try
-        {
-            dgramSocket=new DatagramSocket(PORT);
-        }
-        catch(IOException ex)
-        {
-            System.out.println("Unable to attach to port!");
-            System.out.println(ex.getClass());
-            System.exit(1);
-        }
-       
-    }
-    
-    
-    
-    public void recieve()
-    {
-        buffer = new byte[256]; 
-        
-        inPacket = new DatagramPacket( buffer, buffer.length); 
-        try
-        {
-            dgramSocket.receive(inPacket);
-        }
-        catch(IOException ex)
-        {
-            
-        }
-        
-        InetAddress clientAddress = inPacket.getAddress();
-        int clientPort = inPacket.getPort();
-        dataIn=inPacket.getData(); 
-    }
-    
-    public void respond()
-    {
         
         
-    }*/
+    }
     
-    
+    private void switchBoard(Packet p)
+    {
+        String code=new String(p.getHeader().getCode());
+        
+        
+    }
 }
+    
+    
