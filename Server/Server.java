@@ -54,7 +54,7 @@ public class Server extends Thread
     {
         try {    
             String messageIn, messageOut;
-            int numMessages = 0;
+            
 
             do {
                 buffer = new byte[300]; 		//Step 2.
@@ -82,15 +82,7 @@ public class Server extends Thread
                        
                         
                         
-                numMessages++;
-                messageOut = ("Message " + numMessages
-                        + ": " + messageIn);
-                outPacket = new DatagramPacket(
-                        messageOut.getBytes(),
-                        messageOut.length(),
-                        clientAddress,
-                        clientPort);		//Step 7.
-                dgramSocket.send(outPacket);	//Step 8.
+               
             } while (true);
         } catch (IOException e)
         {

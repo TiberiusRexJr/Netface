@@ -7,6 +7,8 @@ package GUI;
 
 import Package.Header;
 import Package.Packet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -67,7 +69,11 @@ public class Register extends GridPane
             byte[] pack=main.ut.toByte(p);
             System.out.println(pack.length);
             main.t.Send(pack);
-            main.t.recieve();
+            try {
+                main.t.recieve();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         });
     }

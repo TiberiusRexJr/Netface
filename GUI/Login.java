@@ -9,6 +9,8 @@ import Client.ClientOp;
 import Client.Transmission;
 import Package.Header;
 import Package.Packet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -60,8 +62,13 @@ public class Login extends GridPane
             Packet p=new Packet(h);
             byte[] pack=main.ut.toByte(p);
             main.t.Send(pack);
-            
-            main.setLeft(main.ui);
+            try {
+                main.t.recieve();
+                
+                //main.setLeft(main.ui);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         });
     }
