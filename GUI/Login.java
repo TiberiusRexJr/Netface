@@ -13,6 +13,7 @@ import Package.Packet;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -22,52 +23,62 @@ import javafx.scene.layout.GridPane;
  */
 public class Login extends GridPane
 {
-    private TextField usrnm=new TextField();
-    private TextField usrpswrd=new TextField();
-    private Button submit;
+    
     private Main main;
-    private MainUI mainui;
-    private ClientOp cop;
+    private Hyperlink register;
 
    
+    private TextField userName=new TextField();
+    private TextField password=new TextField();
+    private Button submit=new Button("Submit");
     
-    
-    public Login(Main m,MainUI mu,ClientOp co,Transmission t)
+    public Login(Main m)
     {
-         
-        this.setVgap(4);
-        this.setSubmit();
-        this.setPadding(new Insets(5, 5, 5, 5));
-        this.add(new Label("Username:"), 0, 0);
-        this.add(usrnm,1,0);
-        this.add(new Label("Password:"), 0, 1);
-        this.add(usrpswrd,1,1);
-        this.add(submit,1,2);
         main=m;
-        mainui=mu;
-        cop=co;
+        setSubmit();
+        setUserName();
+        setRegister();
+        this.setVgap(4);
+        this.setPadding(new Insets(5, 5, 5, 5));
+        this.add(new Label("User Name:"), 0, 0);
+        this.add(new Label("Password: "),0,1);
+        
+        this.add(userName,1,0);
+        this.add(password,1,1);
+        this.add(submit,0,2);
+        this.add(register,1,2);
     }
-    
-    public void setSubmit()
+    public void setSubmit( )
     {
-        submit=new Button("Submit");
-        submit.setOnAction( (ActionEvent event)->
+        submit.setOnAction((ActionEvent event)->
         {
-            String code="0002";
-            String q="string";
-            cop.setPassword(usrpswrd.getText());
-            cop.setUsrname(usrnm.getText());
-            Header h=new Header(usrnm.getText(),usrpswrd.getText(),code,q);
+            String code="v";
+            String q="validate";
+            main.cop.setUsrname(userName.getText().toString());
+            main.cop.setPassword(password.getText().toString());
+            Header h=new Header(userName.getText(),password.getText(),code,q);
             Packet p=new Packet(h);
             byte[] pack=main.ut.toByte(p);
             main.t.Send(pack);
-            main.setLeft(mainui);      
-        }
-        );
+            
+            main.setLeft(main.ui);
+            
+        });
     }
-     public ClientOp getCop() 
+     public void setRegister( ) 
      {
-        return cop;
+         register=new Hyperlink("Register");
+        register.setOnAction((ActionEvent event)->
+        {
+            main.setLeft(main.r);
+        });
     }
     
-}
+       public void setUserName() 
+       {
+        userName.setPromptText("FirstnameLastname");
+       }
+    
+    }
+    
+

@@ -8,6 +8,7 @@ import Utilities.Util;
 import Package.*;
 import java.io.*;
 import java.net.*;
+
 /**
  *
  * @author Dream
@@ -21,7 +22,6 @@ public class Server extends Thread
     private static byte[] dataIn=null;
     private InetAddress clientAddress=null;
     private int clientPort=0;
-    
    @Override
    public void run()
     {
@@ -31,13 +31,16 @@ public class Server extends Thread
     public void Start() 
     {
         System.out.println("Opening port...\n");
-        try {
-            dgramSocket = new DatagramSocket(PORT);//Step 1.
-        } catch (SocketException e) {
+        try 
+        {
+            dgramSocket = new DatagramSocket(PORT);
+        } catch (SocketException e) 
+        {
             System.out.println("Unable to attach to port!");
             System.out.println(e.getClass());
             System.exit(1);
         }
+       
         controller();
     }
 
@@ -48,7 +51,7 @@ public class Server extends Thread
             int numMessages = 0;
 
             do {
-                buffer = new byte[256]; 		//Step 2.
+                buffer = new byte[300]; 		//Step 2.
                 inPacket = new DatagramPacket(buffer, buffer.length); //Step 3.
                 dgramSocket.receive(inPacket);	//Step 4.
 
@@ -91,15 +94,38 @@ public class Server extends Thread
             System.out.println("\n* Closing connection... *");
             dgramSocket.close();				//Step 9.
         }
-        
-        
+   
     }
     
     private void switchBoard(Packet p)
     {
+        System.out.println("in switchboard");
+        Operations o=new Operations();
         String code=new String(p.getHeader().getCode());
         
         
+        switch(code)
+        {
+            case "v": o.validate(new String(p.getHeader().getQuery()));
+               break;
+            case "u":
+               break;
+            case "s":
+                break;
+            case "n":
+                break;
+            case "d":
+                break;
+            case "g":
+                break;
+            case "l":
+                break;
+            case "r":o.register(new String(p.getHeader().getQuery()));
+                break;
+            default: break;
+            
+        }
+
     }
 }
     

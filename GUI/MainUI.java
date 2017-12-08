@@ -124,8 +124,8 @@ public class MainUI extends GridPane
             String code="0001";
             String query=lastName.getText()+firstName.getText();
             String name,pass;
-            name=main.li.getCop().getUsrname();
-            pass=main.li.getCop().getPassword();
+            name=main.cop.getUsrname();
+            pass=main.cop.getPassword();
             Header h=new Header(name,pass,code,query);
             Packet p=new Packet(h);
             

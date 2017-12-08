@@ -5,6 +5,8 @@
  */
 package Server;
 
+import java.io.File;
+
 /**
  *
  * @author Dream
@@ -27,13 +29,15 @@ public class Operations  extends Server
         return b;
     }
     
-    public boolean register()
+    public boolean register(String info)
     {
+        System.out.println(info);
         return b;
     }
     
-    public boolean validate()
+    public boolean validate(String q)
     {
+        System.out.print(q);
         return b;
     }
     
@@ -45,6 +49,18 @@ public class Operations  extends Server
     {
         return b;
     }
+    public boolean mkdir()
+    {  
+        File dir=new File("C:/Users/All Users/Desktop/Netface");
+        if(!dir.exists())
+        {
+        new File("C:/Users/All Users/Desktop/Netface").mkdirs();
+        b=true;
+        }
+        
+       
+        return b;
+    };
     
     
 }

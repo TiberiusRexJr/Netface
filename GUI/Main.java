@@ -41,7 +41,8 @@ public class Main extends BorderPane
     ImageControl ic=new ImageControl();
     ClientOp cop=new ClientOp();
     Transmission t=new Transmission();
-    Login li=new Login(this,ui,cop,t);
+    Login li=new Login(this);
+    Register r=new Register(this);
     ImageBox ib=new ImageBox("user");
    
     
