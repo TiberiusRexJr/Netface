@@ -5,13 +5,12 @@
  */
 package Utilities;
 
-import Package.Packet;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutput;
+import java.lang.ClassNotFoundException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 
 /**
  *
@@ -36,5 +35,22 @@ public class Util
         
         return out.toByteArray();
      
+    }
+    public Object toObject(byte[] b) throws ClassNotFoundException
+    {
+        ByteArrayInputStream in=new ByteArrayInputStream(b);
+        Object o=null;
+        try
+        {
+          ObjectInputStream is=new ObjectInputStream(in); 
+          o=is.readObject();
+        }
+        catch(IOException ioe)
+        {
+            
+        }
+        return o;
+        
+       
     }
 }
