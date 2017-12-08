@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Server;
+import Utilities.Util;
+import Package.*;
 import java.io.*;
 import java.net.*;
 /**
@@ -41,7 +43,7 @@ public class Server extends Thread
 
     private void controller() 
     {
-        try {
+        try {    
             String messageIn, messageOut;
             int numMessages = 0;
 
@@ -60,7 +62,22 @@ public class Server extends Thread
                         inPacket.getLength());	//Step 6.
 
                 System.out.println("Message received.");
-                System.out.println(clientAddress);
+                byte[] data=inPacket.getData();
+                        Util u=new Util();
+                        try
+                        {
+                            Object o=(Packet) u.toObject(data);
+                            System.out.println(o.toString());
+                            
+                            
+                            
+                        }
+                        catch(ClassNotFoundException cnf)
+                         {
+                             System.out.println(cnf.getClass());
+                         }
+                        
+                        
                 numMessages++;
                 messageOut = ("Message " + numMessages
                         + ": " + messageIn);
