@@ -5,7 +5,8 @@
  */
 package GUI;
 import Client.*;
-import Server.Start;
+import Server.Server;
+import Utilities.Util;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -36,6 +37,7 @@ public class Main extends BorderPane
     
     
     MainUI ui=new MainUI(this);
+    Util ut=new Util();
     ImageControl ic=new ImageControl();
     ClientOp cop=new ClientOp();
     Transmission t=new Transmission();

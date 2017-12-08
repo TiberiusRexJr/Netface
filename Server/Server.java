@@ -10,7 +10,7 @@ import java.net.*;
  *
  * @author Dream
  */
-public class Start 
+public class Server extends Thread
 {
     private static final int PORT = 1234;
     private static DatagramSocket dgramSocket;
@@ -20,8 +20,13 @@ public class Start
     private InetAddress clientAddress=null;
     private int clientPort=0;
     
-    
-    public   void Start() 
+   @Override
+   public void run()
+    {
+        Start();
+    }
+        
+    public void Start() 
     {
         System.out.println("Opening port...\n");
         try {
@@ -31,10 +36,11 @@ public class Start
             System.out.println(e.getClass());
             System.exit(1);
         }
-        run();
+        controller();
     }
 
-    private   void run() {
+    private void controller() 
+    {
         try {
             String messageIn, messageOut;
             int numMessages = 0;
@@ -54,6 +60,7 @@ public class Start
                         inPacket.getLength());	//Step 6.
 
                 System.out.println("Message received.");
+                System.out.println(clientAddress);
                 numMessages++;
                 messageOut = ("Message " + numMessages
                         + ": " + messageIn);
@@ -77,7 +84,7 @@ public class Start
     
   /*  private static byte[] buffer = new byte[15000]; 
     
-    public Start()
+    public Server()
     {
         startup();
     }

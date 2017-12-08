@@ -7,6 +7,8 @@ package GUI;
 
 import Client.ClientOp;
 import Client.Transmission;
+import Package.Header;
+import Package.Packet;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -51,14 +53,15 @@ public class Login extends GridPane
         submit=new Button("Submit");
         submit.setOnAction( (ActionEvent event)->
         {
+            String code="0002";
+            String q="string";
             cop.setPassword(usrpswrd.getText());
             cop.setUsrname(usrnm.getText());
-            
-            main.setLeft(mainui);
-           
-           
-            
-            
+            Header h=new Header(usrnm.getText(),usrpswrd.getText(),code,q);
+            Packet p=new Packet(h);
+            byte[] pack=main.ut.toByte(p);
+            main.t.Send(pack);
+            main.setLeft(mainui);      
         }
         );
     }

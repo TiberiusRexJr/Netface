@@ -66,7 +66,7 @@ public class Transmission
         }
         catch(IOException e)
         {
-            
+            System.out.println(e.getClass());
         }
         
     }
