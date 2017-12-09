@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -46,7 +47,7 @@ public class MainUI extends GridPane
     private TextField fileURL;
     private Button uploadButton;
     private Button select;
-
+    private String fileDir;
    
     public Text fromT=new Text("N/A");
     public Text actionT=new Text("N/A");
@@ -83,20 +84,15 @@ public class MainUI extends GridPane
         DirectoryChooser dir=new DirectoryChooser();
         FileChooser fc=new FileChooser();
         fc.setTitle("Choose a Image: .jpg,.png");
-        fc.getExtensionFilters().addAll
-        (new ExtensionFilter("Image Files","*.png","*.jpg"));
-        
-        
-        
-        
-        
+        fc.getExtensionFilters().addAll(new ExtensionFilter("Image Files","*.png","*.jpg"));
         select=new Button("Select");
         select.setOnAction((ActionEvent event)->
         {
             File file=fc.showOpenDialog(main.stage);
             if(file!=null)
             {
-             String fileURL=file.getName(); 
+             String fileURL=file.getName();
+             fileDir=file.getAbsolutePath();
             main.ui.fileURL.setText(fileURL);
             }
            
@@ -154,6 +150,24 @@ public class MainUI extends GridPane
     public void setUploadButton() 
     {
         uploadButton=new Button("Upload");
+        
+        uploadButton.setOnAction((ActionEvent event)->
+        {
+             try
+             {
+             File file=new File(fileDir);
+             System.out.println(file);
+             
+      
+             }
+             catch(IllegalArgumentException iea)
+             {
+                 System.out.println(iea.getClass());
+             }
+            
+            
+                
+        });
     }
 
     private void setTtitle()
