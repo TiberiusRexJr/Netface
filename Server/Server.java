@@ -145,15 +145,13 @@ public class Server extends Thread
             status="Failure";
         }
  
-        String name="Server";
-        String pass="NA";
-        String q=cd+": "+status;
-        
-        Header h=new Header(name,pass,c,q);
-        Packet p=new Packet(h);
+        String from="Server";
+
+        HeaderS hs=new HeaderS(from,status,c,cd);
+        Packet p=new Packet(hs);
         Util u=new Util();
         byte[] pack=u.toByte(p);
-        System.out.println(pack.length+"hi from server response");
+        
         
         outPacket = new DatagramPacket(pack,pack.length,clientAddress,clientPort);
         

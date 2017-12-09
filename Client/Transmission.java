@@ -73,20 +73,20 @@ public class Transmission
         
     }
     
-    public String recieve() throws ClassNotFoundException
+    public Packet recieve() throws ClassNotFoundException
     {
         byte[] buffer=new byte[500];
         byte[] data=null;
         String mssg=null;
-        
+        Packet p=null;
         DatagramPacket inbound = new DatagramPacket
         (buffer, buffer.length); 
         try
         {
           dgramSocket.receive(inbound);
           data=inbound.getData();
-          Packet p=(Packet) u.toObject(data);
-          System.out.println(new String(p.getHeader().getName()));
+          p=(Packet) u.toObject(data);
+          System.out.println(new String(p.getHeaderS().getFrom()));
         }
         catch(IOException ex)
         {
@@ -94,7 +94,7 @@ public class Transmission
             
         }
         
-         return mssg;
+         return p;
     }
  
 }

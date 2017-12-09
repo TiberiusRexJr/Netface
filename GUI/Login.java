@@ -5,10 +5,9 @@
  */
 package GUI;
 
-import Client.ClientOp;
-import Client.Transmission;
 import Package.Header;
 import Package.Packet;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +18,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 /**
  *
  * @author Dream
@@ -56,16 +56,28 @@ public class Login extends GridPane
         {
             String code="v";
             String q="validate";
+            Packet recieved=null;
             main.cop.setUsrname(userName.getText().toString());
             main.cop.setPassword(password.getText().toString());
             Header h=new Header(userName.getText(),password.getText(),code,q);
             Packet p=new Packet(h);
             byte[] pack=main.ut.toByte(p);
             main.t.Send(pack);
-            try {
-                main.t.recieve();
-                
-                //main.setLeft(main.ui);
+            try 
+            {
+                recieved=main.t.recieve();
+                String status=new String((recieved.getHeaderS().getStatus()));
+                main.ui.updateStatusBox(recieved);
+                System.out.println("Server status is : "+status);
+                if(Objects.equals("Success", status))
+                {
+                    main.setLeft(main.ui);
+                }
+                else
+                {
+                    main.li.add(new Text("Login Failed:"), 1, 3);
+                }
+          
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }

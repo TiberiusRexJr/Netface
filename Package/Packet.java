@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Packet implements Serializable
 {
     private Header header;
+    private HeaderS headers;
     private ArrayList<BufferedImage> payload;
     
     public Packet(Header h,ArrayList<BufferedImage> p)
@@ -27,12 +28,25 @@ public class Packet implements Serializable
     {
         setHeader(h);
     }
+   
+    public Packet(HeaderS hs)
+    {
+        setHeaderS(hs);
+    }
+    public HeaderS getHeaderS()
+    {
+        return headers;
+    }
+   
     
      public Header getHeader() 
      {
         return header;
     }
-
+      public void setHeaderS(HeaderS hs)
+    {
+        headers=hs;
+    }
     public void setHeader(Header header) 
     {
         this.header = header;

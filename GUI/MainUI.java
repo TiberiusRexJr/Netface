@@ -35,14 +35,19 @@ public class MainUI extends GridPane
     private TitledPane uploadDropDown;
    
     private Text title;
-    private Text respMssge=new Text("N/A");
+    private VBox serverRsp;
+    private VBox clientAction;
     private TextField firstName;
     private TextField lastName;
     private TextField search_email;
     private Button uploadButton;
     private Button select;
+    public Text fromT=new Text("N/A");
+    public Text actionT=new Text("N/A");
+    public Text statusT=new Text("N/A");
+      
     
-    private VBox statusBox;
+    private GridPane statusBox;
     private final Main  main;
 
     
@@ -70,10 +75,31 @@ public class MainUI extends GridPane
     }    
       public void setStatusBox() 
       {
-        statusBox = new VBox();
-        Text status=new Text("Server Response:");
-        statusBox.getChildren().addAll(status,respMssge);
-
+        statusBox = new GridPane();
+        Text title=new Text("Message Center");
+        
+        statusBox.setVgap(4);
+        statusBox.setPadding(new Insets(5, 5, 5, 5));
+        statusBox.add(title,1,0);
+        statusBox.add(new Label("From:"), 0, 1);
+        statusBox.add(new Label("Action:"),0,2);
+        statusBox.add(new Label("Status:"),0,3);
+        
+        statusBox.add(fromT, 1, 1);
+        statusBox.add(actionT,1,2);
+        statusBox.add(statusT,1,3);
+      }
+      
+      public void updateStatusBox(Packet p)
+      {
+          statusBox.getChildren().remove(fromT);
+          statusBox.getChildren().remove(actionT);
+          statusBox.getChildren().remove(statusT);
+          
+          System.out.println(p.getClass());
+          statusBox.add(new Text(new String(p.getHeaderS().getFrom())), 1, 1);
+          statusBox.add(new Text(new String(p.getHeaderS().getCodedsc())), 1, 2);
+          statusBox.add(new Text(new String(p.getHeaderS().getStatus())), 1, 3);
       }
       
     
