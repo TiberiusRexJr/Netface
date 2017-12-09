@@ -79,7 +79,7 @@ public class Server extends Thread
                          {
                              System.out.println(cnf.getClass());
                          }
-                       
+                        
                         
                         
                
@@ -135,6 +135,7 @@ public class Server extends Thread
     
     private void response(String c,String cd,int st)
     {
+        System.out.println("in server response");
         String status="";
         if(st==1)
         {

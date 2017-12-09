@@ -7,14 +7,14 @@ package GUI;
 
 import Package.Header;
 import Package.Packet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Objects;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -57,7 +57,7 @@ public class Register extends GridPane
     {
         Register.setOnAction((ActionEvent event)->
         {
-        
+           
            String name="admin";
            String pass="password";
            String code="r";
@@ -69,10 +69,23 @@ public class Register extends GridPane
             byte[] pack=main.ut.toByte(p);
             System.out.println(pack.length);
             main.t.Send(pack);
-            try {
-                main.t.recieve();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            try 
+            {
+                p=main.t.recieve();
+                String status=new String((p.getHeaderS().getStatus()));
+                main.ui.updateStatusBox(p);
+                System.out.println("Server status is : "+status);
+                if(Objects.equals("Success", status))
+                {
+                    main.setLeft(main.li);
+                }
+                else
+                {
+                    main.r.add(new Text("Registration Failed:"), 0, 6);
+                }
+            } catch (ClassNotFoundException ex) 
+            {
+               System.out.println(ex.getClass());
             }
 
         });

@@ -53,7 +53,8 @@ public class Operations  extends Server
              
          }
          bw.close();
-         status=1;
+         status=makeUserImageDirectory(data[1]+data[2]);
+         
         }
         catch(IOException ex)
         {
@@ -110,6 +111,22 @@ public class Operations  extends Server
         }
         return status;
     };
+    
+    public int makeUserImageDirectory(String name)
+    {
+        int status=1;
+        File f=new File(imageFolderAdres);
+        File[] paths=f.listFiles();
+        System.out.println(paths.length);
+        new File(imageFolderAdres+"/"+name+paths.length).mkdirs();
+        
+        File file=new File(imageFolderAdres+"/"+name+paths.length);
+        if(!(file.exists()))
+        {
+            status=0;
+        }
+        return status;
+    }
    
     
     

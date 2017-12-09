@@ -1,12 +1,12 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template fc, choose Tools | Templates
  * and open the template in the editor.
  */
 package GUI;
 import Package.*;
-import Client.*;
 import Utilities.Util;
+import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -16,6 +16,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  *
@@ -40,8 +43,11 @@ public class MainUI extends GridPane
     private TextField firstName;
     private TextField lastName;
     private TextField search_email;
+    private TextField fileURL;
     private Button uploadButton;
     private Button select;
+
+   
     public Text fromT=new Text("N/A");
     public Text actionT=new Text("N/A");
     public Text statusT=new Text("N/A");
@@ -54,11 +60,11 @@ public class MainUI extends GridPane
 
     public MainUI(Main ma)
     {  
+        setSelect(); 
         setSearch();
         setTtitle();
         setStatusBox();
         setUploadButton();
-        setSelectButton();
         setFirstName();
         setLastName();
         setSearchEmail();
@@ -70,9 +76,32 @@ public class MainUI extends GridPane
         this.add(uploadDropDown,0,1);
         this.add(statusBox,0,6);
         main=ma;
-       
-     
-    }    
+
+    }   
+     public void setSelect() 
+    {
+        DirectoryChooser dir=new DirectoryChooser();
+        FileChooser fc=new FileChooser();
+        fc.setTitle("Choose a Image: .jpg,.png");
+        fc.getExtensionFilters().addAll
+        (new ExtensionFilter("Image Files","*.png","*.jpg"));
+        
+        
+        
+        
+        
+        select=new Button("Select");
+        select.setOnAction((ActionEvent event)->
+        {
+            File file=fc.showOpenDialog(main.stage);
+            if(file!=null)
+            {
+             String fileURL=file.getName(); 
+            main.ui.fileURL.setText(fileURL);
+            }
+           
+        });
+    }
       public void setStatusBox() 
       {
         statusBox = new GridPane();
@@ -85,7 +114,7 @@ public class MainUI extends GridPane
         statusBox.add(new Label("Action:"),0,2);
         statusBox.add(new Label("Status:"),0,3);
         
-        statusBox.add(fromT, 1, 1);
+        statusBox.add(fromT, 1, 1); 
         statusBox.add(actionT,1,2);
         statusBox.add(statusT,1,3);
       }
@@ -101,14 +130,6 @@ public class MainUI extends GridPane
           statusBox.add(new Text(new String(p.getHeaderS().getCodedsc())), 1, 2);
           statusBox.add(new Text(new String(p.getHeaderS().getStatus())), 1, 3);
       }
-      
-    
-    
-    public void setSelectButton() 
-    {
-        this.select=new Button();
-        
-    }
 
     
     public void setSearchDropDown( ) 
@@ -128,10 +149,7 @@ public class MainUI extends GridPane
         uploadDropDown.expandedProperty().setValue(Boolean.FALSE);
     }
     
-    public void setSelect()
-    {
-     select=new Button("Select");
-    }
+
 
     public void setUploadButton() 
     {
@@ -205,13 +223,16 @@ public class MainUI extends GridPane
     }
      public void setUploadGrid() 
      {
+         
+        fileURL=new TextField();
         uploadGrid=new GridPane();
         uploadGrid.setVgap(4);
         uploadGrid.setPadding(new Insets(5,5,5,5));
         uploadGrid.add(new Label("File:"),0,0);
-        uploadGrid.add(new TextField(),2,1);
-        uploadGrid.add(select,0,1);
-        uploadGrid.add(uploadButton,0,2);
+        uploadGrid.add(fileURL,1,0);
+        uploadGrid.add(select,0,2);
+        uploadGrid.add(uploadButton,1,2);
+        
     }
 
     

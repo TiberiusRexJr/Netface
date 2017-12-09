@@ -5,7 +5,6 @@
  */
 package GUI;
 import Client.*;
-import Server.Server;
 import Utilities.Util;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -14,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 /**
@@ -34,6 +34,7 @@ public class Main extends BorderPane
     private Text welcome;
     private Button logout;
     private final String defaultUser="N/A";
+    Stage stage;
     
     
     MainUI ui=new MainUI(this);
@@ -47,7 +48,7 @@ public class Main extends BorderPane
    
     
     
-    public Main(String defaultUser) 
+    public Main(String defaultUser,Stage s) 
     {
        setTitle();
        setWelcome(defaultUser);
@@ -55,6 +56,7 @@ public class Main extends BorderPane
        setWelcomeBox();
        setTitleBox();
        setMainBox();
+       stage=s;
        this.setTop(mainBox);
        this.setCenter(ib);
        this.setLeft(li);

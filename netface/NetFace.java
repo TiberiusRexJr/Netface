@@ -22,7 +22,7 @@ public class NetFace extends Application
     public void start(Stage primaryStage) 
     {
         String name="red";
-        Main m=new Main(name);
+        Main m=new Main(name,primaryStage);
         
         Scene scene = new Scene(m, 500, 500);
         
