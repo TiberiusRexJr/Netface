@@ -121,14 +121,16 @@ public class MainUI extends GridPane
       
       public void updateStatusBox(Packet p)
       {
-          statusBox.getChildren().remove(fromT);
-          statusBox.getChildren().remove(actionT);
-          statusBox.getChildren().remove(statusT);
+          main.ui.statusBox.getChildren().remove(fromT);
+          main.ui.statusBox.getChildren().remove(actionT);
+          main.ui.statusBox.getChildren().remove(statusT);
           
+          
+          main.ui.actionT=new Text(new String(p.getHeaderS().getCodedsc()));
         
-          statusBox.add(new Text(new String(p.getHeaderS().getFrom())), 1, 1);
-          statusBox.add(new Text(new String(p.getHeaderS().getCodedsc())), 1, 2);
-          statusBox.add(new Text(new String(p.getHeaderS().getStatus())), 1, 3);
+          main.ui.statusBox.add(new Text(new String(p.getHeaderS().getFrom())), 1, 1);
+        main.ui.statusBox.add(actionT, 1, 2);
+          main.ui.statusBox.add(new Text(new String(p.getHeaderS().getStatus())), 1, 3);
       }
 
     
