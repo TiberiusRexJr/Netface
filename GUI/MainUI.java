@@ -150,13 +150,15 @@ public class MainUI extends GridPane
     public void setUploadButton() 
     {
         uploadButton=new Button("Upload");
-        
+        String code="u";
+        String query=main.cop.getUsrname();
         uploadButton.setOnAction((ActionEvent event)->
         {
              try
              {
              File file=new File(fileDir);
-             System.out.println(file);
+             Header h=new Header(main.cop.getUsrname(),main.cop.getPassword(),code,query);
+             Packet p=new Packet(h);
              
       
              }
