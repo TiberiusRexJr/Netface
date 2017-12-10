@@ -57,7 +57,7 @@ public class Server extends Thread
             
 
             do {
-                buffer = new byte[300]; 		//Step 2.
+                buffer = new byte[10000]; 		//Step 2.
                 inPacket = new DatagramPacket(buffer, buffer.length); //Step 3.
                 dgramSocket.receive(inPacket);	//Step 4.
 
@@ -86,7 +86,8 @@ public class Server extends Thread
             } while (true);
         } catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
         } finally //If exception thrown, close connection.
         {
             System.out.println("\n* Closing connection... *");
@@ -109,7 +110,9 @@ public class Server extends Thread
                       codeDesc="Validate";
                       response(code,codeDesc,status);
                break;
-            case "u":
+            case "u":status=o.upload(new String(p.getHeader().getName()),p.getPayload());
+                     codeDesc="Upload";
+                     response(code,codeDesc,status);
                break;
             case "s":
                 break;
@@ -135,7 +138,7 @@ public class Server extends Thread
     
     private void response(String c,String cd,int st)
     {
-        System.out.println("in server response");
+        System.out.println("In Server Response");
         String status="";
         if(st==1)
         {

@@ -6,8 +6,10 @@
 package Package;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -17,12 +19,12 @@ public class Packet implements Serializable
 {
     private Header header;
     private HeaderS headers;
-    private ArrayList<BufferedImage> payload;
+    private byte[] payload;
     
-    public Packet(Header h,ArrayList<BufferedImage> p)
+    public Packet(Header h, byte[] img)
     {
         setHeader(h);
-        setPayload(p);
+        setPayload(img);
     }
     public Packet(Header h)
     {
@@ -52,14 +54,15 @@ public class Packet implements Serializable
         this.header = header;
     }
 
-    public ArrayList<BufferedImage> getPayload() 
+    public byte[] getPayload() 
     {
         return payload;
     }
 
-    public void setPayload(ArrayList<BufferedImage> payload) 
+    public void setPayload(byte[]  img) 
     {
-        this.payload = payload;
+        payload=new byte[1000];
+        payload=img;
     }
 
 }

@@ -36,9 +36,10 @@ public class Transmission
           }
           catch(IOException e)
           {
-          
+              System.out.println(e.getClass());
+              System.out.println(e.getClass());
           }
-        
+         
       }
     public  void setHost()
     {
@@ -56,26 +57,26 @@ public class Transmission
     
     public void Send(byte[] packet)
     {
-        
+        System.out.println(packet.length+"  packet length");
         DatagramPacket outbound=new DatagramPacket
                 (
                         packet,packet.length,host,port
                 );
         try
         {
-            
+            System.out.println(dgramSocket.getSendBufferSize());
             dgramSocket.send(outbound);
         }
         catch(IOException e)
         {
-            System.out.println(e.getClass());
+            System.out.println(e.getMessage());
         }
         
     }
     
     public Packet recieve() throws ClassNotFoundException
     {
-        byte[] buffer=new byte[500];
+        byte[] buffer=new byte[1000];
         byte[] data=null;
         String mssg=null;
         Packet p=null;

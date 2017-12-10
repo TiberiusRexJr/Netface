@@ -6,20 +6,23 @@
 package GUI;
 import Package.*;
 import Utilities.Util;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -89,6 +92,7 @@ public class MainUI extends GridPane
         select.setOnAction((ActionEvent event)->
         {
             File file=fc.showOpenDialog(main.stage);
+            
             if(file!=null)
             {
              String fileURL=file.getName();
@@ -121,7 +125,7 @@ public class MainUI extends GridPane
           statusBox.getChildren().remove(actionT);
           statusBox.getChildren().remove(statusT);
           
-          System.out.println(p.getClass());
+        
           statusBox.add(new Text(new String(p.getHeaderS().getFrom())), 1, 1);
           statusBox.add(new Text(new String(p.getHeaderS().getCodedsc())), 1, 2);
           statusBox.add(new Text(new String(p.getHeaderS().getStatus())), 1, 3);
@@ -151,24 +155,41 @@ public class MainUI extends GridPane
     {
         uploadButton=new Button("Upload");
         String code="u";
-        String query=main.cop.getUsrname();
+        
         uploadButton.setOnAction((ActionEvent event)->
         {
+             
+             
+             String query=main.cop.getUsrname();
+        
              try
              {
-             File file=new File(fileDir);
-             Header h=new Header(main.cop.getUsrname(),main.cop.getPassword(),code,query);
-             Packet p=new Packet(h);
+              
              
-      
-             }
-             catch(IllegalArgumentException iea)
+             BufferedImage img=ImageIO.read(new File(fileDir));
+             ByteArrayOutputStream baos=new ByteArrayOutputStream();
+             ImageIO.write(img,"png",baos);
+             byte[] iData=baos.toByteArray();
+             
+             
+             Header h=new Header(main.cop.getUsrname(),main.cop.getPassword(),code,query);
+             System.out.println("username is: "+main.cop.getUsrname());
+             Packet p=new Packet(h,iData);
+             byte[] pack=main.ut.toByte(p);
+             main.t.Send(pack);
+             Packet recieved=main.t.recieve();
+             main.ui.updateStatusBox(recieved);
+             
+           }
+             catch(IOException e)
              {
-                 System.out.println(iea.getClass());
+                 System.out.println(e.getClass());
+                 System.out.println(e.getMessage());
              }
-            
-            
-                
+              catch(ClassNotFoundException cnf)
+             {
+                 System.out.println(cnf.getClass());
+             }
         });
     }
 

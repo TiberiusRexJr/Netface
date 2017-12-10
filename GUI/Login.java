@@ -68,7 +68,7 @@ public class Login extends GridPane
                 recieved=main.t.recieve();
                 String status=new String((recieved.getHeaderS().getStatus()));
                 main.ui.updateStatusBox(recieved);
-                System.out.println("Server status is : "+status);
+                
                 if(Objects.equals("Success", status))
                 {
                     main.setLeft(main.ui);
@@ -79,7 +79,7 @@ public class Login extends GridPane
                 }
           
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
             
         });
